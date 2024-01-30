@@ -122,6 +122,7 @@ public class WebController {
             return "redirect:/";
         }
 
+        logger.debug("nonce: " + httpSession.getAttribute(NONCE));
         if (!lineAPIService.verifyIdToken(token.id_token, (String) httpSession.getAttribute(NONCE))) {
             // verify failed
             return "redirect:/";

@@ -117,12 +117,13 @@ public class WebController {
     @RequestMapping("/success")
     public String success(HttpSession httpSession, Model model) {
 
+        logger.debug("nonce: " + httpSession.getAttribute(NONCE));
+
         AccessToken token = (AccessToken)httpSession.getAttribute(ACCESS_TOKEN);
         if (token == null){
             return "redirect:/";
         }
 
-        logger.debug("nonce: " + httpSession.getAttribute(NONCE));
         if (!lineAPIService.verifyIdToken(token.id_token, (String) httpSession.getAttribute(NONCE))) {
             // verify failed
             return "redirect:/";
